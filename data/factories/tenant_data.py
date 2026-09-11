@@ -20,7 +20,7 @@ class TenantDataFactory:
             max=999999
         )
 
-        academy_name = f"{self.fake.company()} Academy {index}"
+        academy_name = (f"Evalytics Automation Academy {index}")
 
         subdomain = (
             f"automation-{index}-{unique_id}"

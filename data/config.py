@@ -1,5 +1,7 @@
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
 # ============================================================
 # Evalytics Test Data Configuration
@@ -24,4 +26,40 @@ REVIEWERS_PER_TENANT = int(
 AUTOMATION_PREFIX = os.getenv(
     "AUTOMATION_PREFIX",
     "Evalytics Automation"
+)
+
+
+# ============================================================
+# Approved Academy Accounts
+# ============================================================
+
+ACADEMY_1_BASE_URL = os.getenv(
+    "ACADEMY_1_BASE_URL",
+    ""
+)
+
+ACADEMY_1_USERNAME = os.getenv(
+    "ACADEMY_1_USERNAME",
+    ""
+)
+
+ACADEMY_1_PASSWORD = os.getenv(
+    "ACADEMY_1_PASSWORD",
+    ""
+)
+
+
+ACADEMY_2_BASE_URL = os.getenv(
+    "ACADEMY_2_BASE_URL",
+    ""
+)
+
+ACADEMY_2_USERNAME = os.getenv(
+    "ACADEMY_2_USERNAME",
+    ""
+)
+
+ACADEMY_2_PASSWORD = os.getenv(
+    "ACADEMY_2_PASSWORD",
+    ""
 )
