@@ -30,7 +30,6 @@ jobs:
       - uses: astral-sh/setup-uv@v5
         with:
           python-version: "3.12"
-      - run: uv venv .venv --python 3.12
       - run: VIRTUAL_ENV=$PWD/.venv uv pip install -r requirements.txt
       - run: .venv/bin/playwright install chromium --with-deps
 
