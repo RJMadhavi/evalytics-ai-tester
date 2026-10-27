@@ -11,10 +11,14 @@ This test:
 7. Records the result in the test report.
 """
 
+import pytest
+
 from data.config import TENANT_COUNT
 from data.factories.tenant_data import TenantDataFactory
 from data.reporting import save_tenant_report
 from pages.academy.create_academy_page import CreateAcademyPage
+
+pytestmark = [pytest.mark.mutating]
 
 
 def test_create_academy_form_with_generated_data(page):

@@ -1,6 +1,13 @@
+# Environment & secrets
 .env
+
+# Python
 .venv/
 __pycache__/
-*.pyc.DS_Store
+*.pyc
+.pytest_cache/
+
+# Test artifacts
+test-results/
 reports/
 data/generated/

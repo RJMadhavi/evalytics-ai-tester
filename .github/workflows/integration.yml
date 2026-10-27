@@ -1,0 +1,74 @@
+name: Integration (full suite)
+
+# ─────────────────────────────────────────────────────────────────────────────
+# The FULL suite, including tests that create data (academies, students).
+# Runs only when YOU trigger it from the Actions tab, and only against an
+# environment you have explicitly approved.
+#
+# Required repository secrets (Settings → Secrets and variables → Actions):
+#   EVALYTICS_AUTOMATION_ENABLED = true
+#   BASE_URL                    = e.g. https://staging.example.com  (disposable!)
+#   ACADEMY_1_BASE_URL / ACADEMY_1_USERNAME / ACADEMY_1_PASSWORD
+#
+# If the secrets are missing, the run stops with a clear "not configured"
+# message instead of silently passing — a green check must mean something.
+# ─────────────────────────────────────────────────────────────────────────────
+on:
+  workflow_dispatch:
+    inputs:
+      include_mutating:
+        description: "Run tests that create data (disposable envs only)"
+        type: boolean
+        default: false
+
+jobs:
+  integration:
+    name: Full test suite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - run: uv venv .venv --python 3.12
+      - run: VIRTUAL_ENV=$PWD/.venv uv pip install -r requirements.txt
+      - run: .venv/bin/playwright install chromium --with-deps
+
+      - name: Check configuration
+        env:
+          AUTOMATION_ENABLED: ${{ secrets.EVALYTICS_AUTOMATION_ENABLED }}
+          TARGET: ${{ secrets.BASE_URL }}
+        run: |
+          if [ -z "$TARGET" ]; then
+            echo "::error::BASE_URL secret is not configured. Add repository secrets (see the workflow file for the list)."
+            exit 1
+          fi
+          if [ "$AUTOMATION_ENABLED" != "true" ]; then
+            echo "::error::EVALYTICS_AUTOMATION_ENABLED secret must be 'true' to run integration tests."
+            exit 1
+          fi
+          echo "Target configured: $TARGET"
+
+      - name: Run full suite
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+          EVALYTICS_AUTOMATION_ENABLED: ${{ inputs.include_mutating && 'true' || 'false' }}
+          ACADEMY_1_BASE_URL: ${{ secrets.ACADEMY_1_BASE_URL }}
+          ACADEMY_1_USERNAME: ${{ secrets.ACADEMY_1_USERNAME }}
+          ACADEMY_1_PASSWORD: ${{ secrets.ACADEMY_1_PASSWORD }}
+        run: |
+          .venv/bin/python -m pytest \
+            --junitxml=integration-results.xml \
+            --html=integration-report.html --self-contained-html
+
+      - name: Upload report and traces
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-report
+          path: |
+            integration-report.html
+            integration-results.xml
+            test-results/
+            reports/
+            data/generated/

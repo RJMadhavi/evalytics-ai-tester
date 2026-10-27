@@ -1,41 +1,21 @@
 """
-Test Academy Login
+Test Academy Login (approved account)
 """
+import pytest
 
-from data.config import (
-    ACADEMY_1_BASE_URL,
-    ACADEMY_1_USERNAME,
-    ACADEMY_1_PASSWORD,
-)
+from pages.auth.login import LoginPage
 
-from pages.auth.login_page import LoginPage
+pytestmark = [pytest.mark.accounts]
 
 
-def test_academy_1_login(page):
-
-    assert ACADEMY_1_BASE_URL, (
-        "ACADEMY_1_BASE_URL is not configured in .env"
-    )
-
-    assert ACADEMY_1_USERNAME, (
-        "ACADEMY_1_USERNAME is not configured in .env"
-    )
-
-    assert ACADEMY_1_PASSWORD, (
-        "ACADEMY_1_PASSWORD is not configured in .env"
-    )
-
+def test_academy_1_login(page, academy_1_credentials):
     login_page = LoginPage(page)
 
-    login_page.open(
-        ACADEMY_1_BASE_URL
-    )
+    login_page.open(academy_1_credentials["base_url"])
 
     login_page.login(
-        username=ACADEMY_1_USERNAME,
-        password=ACADEMY_1_PASSWORD,
+        username=academy_1_credentials["username"],
+        password=academy_1_credentials["password"],
     )
 
-    assert login_page.is_logged_in(), (
-        "Academy login failed"
-    )
+    assert login_page.is_logged_in(), "Academy login failed"
