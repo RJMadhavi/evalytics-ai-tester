@@ -2,15 +2,7 @@
 Create one student through the Evalytics public join flow.
 """
 
-import os
-
-from dotenv import load_dotenv
-
-from data.config import (
-    ACADEMY_1_BASE_URL,
-    ACADEMY_1_USERNAME,
-    ACADEMY_1_PASSWORD,
-)
+import pytest
 
 from pages.auth.login import LoginPage
 from pages.academy.academy_settings_page import (
@@ -24,13 +16,10 @@ from utils.save_student_data import (
     save_student_data,
 )
 
-
-load_dotenv()
-
-BASE_URL = os.getenv("BASE_URL")
+pytestmark = [pytest.mark.mutating, pytest.mark.accounts]
 
 
-def test_create_one_student(page, browser):
+def test_create_one_student(page, browser, academy_1_credentials, target_base_url):
 
     # --------------------------------------------------------
     # Step 1: Login as academy teacher
@@ -39,12 +28,12 @@ def test_create_one_student(page, browser):
     login_page = LoginPage(page)
 
     login_page.open(
-        ACADEMY_1_BASE_URL
+        academy_1_credentials["base_url"]
     )
 
     login_page.login(
-        ACADEMY_1_USERNAME,
-        ACADEMY_1_PASSWORD,
+        academy_1_credentials["username"],
+        academy_1_credentials["password"],
     )
 
     assert login_page.is_logged_in(), (
@@ -58,7 +47,7 @@ def test_create_one_student(page, browser):
     academy_settings_page = AcademySettingsPage(page)
 
     academy_settings_page.open(
-        ACADEMY_1_BASE_URL
+        academy_1_credentials["base_url"]
     )
 
     # --------------------------------------------------------
@@ -98,7 +87,7 @@ def test_create_one_student(page, browser):
     # --------------------------------------------------------
 
     student_page.open(
-        BASE_URL,
+        target_base_url,
         join_code,
     )
 
@@ -159,7 +148,7 @@ def test_create_one_student(page, browser):
             "email": student_email,
             "password": student_password,
             "preferred_language": preferred_language,
-            "academy_base_url": ACADEMY_1_BASE_URL,
+            "academy_base_url": academy_1_credentials["base_url"],
         }
     )
 

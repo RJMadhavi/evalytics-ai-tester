@@ -1,7 +1,11 @@
 '''
         This test verifies the the generator.
 '''
+import pytest
+
 from data.factories.tenant_data import TenantDataFactory
+
+pytestmark = [pytest.mark.unit]
 
 
 def test_generate_two_tenants():

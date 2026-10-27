@@ -1,26 +1,24 @@
-from data.config import (
-    ACADEMY_1_BASE_URL,
-    ACADEMY_1_USERNAME,
-    ACADEMY_1_PASSWORD,
-)
+import pytest
 
 from pages.auth.login import LoginPage
 from pages.academy.academy_settings_page import (
     AcademySettingsPage,
 )
 
+pytestmark = [pytest.mark.accounts]
 
-def test_get_academy_join_code(page):
+
+def test_get_academy_join_code(page, academy_1_credentials):
     # Create our Page Object instances.
     login_page = LoginPage(page)
 
     # Step 1: Open the academy.
-    login_page.open(ACADEMY_1_BASE_URL)
+    login_page.open(academy_1_credentials["base_url"])
 
     # Step 2: Log in using Academy 1 credentials.
     login_page.login(
-        ACADEMY_1_USERNAME,
-        ACADEMY_1_PASSWORD,
+        academy_1_credentials["username"],
+        academy_1_credentials["password"],
     )
 
     # Verify login was successful.
@@ -32,7 +30,7 @@ def test_get_academy_join_code(page):
     academy_settings_page = AcademySettingsPage(page)
 
     academy_settings_page.open(
-        ACADEMY_1_BASE_URL
+        academy_1_credentials["base_url"]
     )
 
     # Step 4: Get the Join Code.

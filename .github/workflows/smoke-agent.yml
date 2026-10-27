@@ -1,0 +1,88 @@
+name: Smoke Agent
+
+# ─────────────────────────────────────────────────────────────────────────────
+# The "website testing agent" — runs the read-only smoke suite on a schedule
+# (every 6 hours) or on demand, and reports like an agent:
+#
+#   - every run publishes a Markdown report in the job summary
+#   - failures are saved as Playwright traces (artifacts)
+#   - if the website is broken, the agent opens a GitHub issue so you notice
+#
+# It is honest automation: deterministic checks on a schedule. The "AI" part
+# can be added later on top of this (failure triage, summaries).
+#
+# The schedule only runs once this file is on the default branch.
+# ─────────────────────────────────────────────────────────────────────────────
+on:
+  schedule:
+    - cron: "0 */6 * * *"   # every 6 hours, UTC
+  workflow_dispatch:        # manual "Run now" button on the Actions tab
+
+permissions:
+  issues: write            # needed to open the failure issue
+
+jobs:
+  smoke:
+    name: Check website
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - run: VIRTUAL_ENV=$PWD/.venv uv pip install -r requirements.txt
+      - run: .venv/bin/playwright install chromium --with-deps
+
+      - name: Run smoke suite
+        id: tests
+        env:
+          BASE_URL: ${{ vars.TARGET_URL || 'https://evalytics.in' }}
+        run: |
+          set +e
+          .venv/bin/python -m pytest -m smoke \
+            --junitxml=smoke-results.xml \
+            --html=smoke-report.html --self-contained-html
+          echo "exitcode=$?" >> "$GITHUB_OUTPUT"
+          exit 0   # always publish the report; the next step decides
+
+      - name: Publish job summary
+        if: always()
+        run: |
+          TARGET="${BASE_URL:-https://evalytics.in}"
+          if [ "${{ steps.tests.outputs.exitcode }}" = "0" ]; then
+            STATUS="All smoke tests passed"
+            BADGE="🟢"
+          else
+            STATUS="Smoke tests FAILED — see report artifact and traces"
+            BADGE="🔴"
+          fi
+          {
+            echo "# $BADGE Smoke Agent — $(date -u '+%Y-%m-%d %H:%M UTC')"
+            echo ""
+            echo "- **Target:** $TARGET"
+            echo "- **Status:** $STATUS"
+            echo ""
+            echo "Run again from the [Actions tab](https://github.com/${{ github.repository }}/actions/workflows/smoke-agent.yml)."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload report and traces
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-agent-report
+          path: |
+            smoke-report.html
+            smoke-results.xml
+            test-results/
+
+      - name: Open failure issue
+        if: ${{ steps.tests.outputs.exitcode != '0' }}
+        run: |
+          gh issue create \
+            --title "🔴 Smoke Agent: website checks failed ($(date -u '+%Y-%m-%d'))" \
+            --body "The scheduled smoke run against \`${BASE_URL:-https://evalytics.in}\` failed.
+
+          See the [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) and download the **smoke-agent-report** artifact for the full report and Playwright traces." \
+            --label "smoke-agent,bug" || true
+        env:
+          GH_TOKEN: ${{ github.token }}
