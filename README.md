@@ -102,7 +102,7 @@ Estimates are re-baselined after Sprint 0. See the test plan, section 9.
 
 ## Documentation
 
-- [Master Test Plan](docs/test-plan/TEST-PLAN.md)
+- [Master Test Plan](docs/testplan/TEST-PLAN.md)
 - [Authorization and scope](docs/governance/AUTHORIZATION.md)
 - [Risk register](docs/risk-register.md)
 - [Architecture decision records](docs/adr/)
