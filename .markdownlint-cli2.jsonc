@@ -1,0 +1,12 @@
+{
+  // Starter rule set. Everything is off except a few rules that catch real mistakes.
+  // Turn more rules on later, one at a time, when the docs are tidy.
+  "config": {
+    "default": false,
+    "MD001": true,
+    "MD010": true,
+    "MD042": true,
+    "MD045": true
+  },
+  "ignores": ["**/node_modules/**"]
+}
