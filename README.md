@@ -109,7 +109,7 @@ Estimates are re-baselined after Sprint 0. See the test plan, section 9.
 
 ## About
 
-Built by **<your-name>**. This project is independent and is not an official Evalytics repository. Test findings reflect the app at the version noted in each run.
+Built by **Madhavi Joshi**. This project is independent and is not an official Evalytics repository. Test findings reflect the app at the version noted in each run.
 
 ## License
 
