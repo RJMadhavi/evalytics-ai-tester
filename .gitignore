@@ -151,3 +151,12 @@ vite.config.ts.timestamp-*
 .env
 *.har
 reports/runs/**/*.zip
+
+# Test users and secrets (never commit)
+.local/
+*.har
+.env
+automation/ui-artifacts/
+__pycache__/
+.pytest_cache/
+.venv/

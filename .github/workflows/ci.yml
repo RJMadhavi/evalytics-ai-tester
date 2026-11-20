@@ -25,3 +25,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check backlog files
         run: python3 scripts/check_backlog.py
+
+  unit-tests:
+    name: Unit tests (automation guardrails)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run unit tests
+        run: python3 -m unittest discover -s automation/common/tests -t automation -v
