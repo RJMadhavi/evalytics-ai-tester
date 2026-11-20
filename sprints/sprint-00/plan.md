@@ -1,8 +1,8 @@
 ---
 sprint: S00
 theme: Foundations and recon
-start: <YYYY-MM-DD>
-end: <YYYY-MM-DD>   # start + 14 days
+start: <2026-11-14>
+end: <2026-11-28>   # start + 14 days
 capacity_hours: 40  # assumes 20 h/week; change to your real number
 committed_hours: 40
 ---
