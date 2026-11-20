@@ -1,2 +1,5 @@
 date,hours_remaining,notes
 <sprint-start>,40,committed at planning
+date,hours_remaining,notes
+2026-11-14,40,committed at planning
+2026-11-20,30,"S0001 S0002 S0004 S0009 done. S0003 waiting on owner."
