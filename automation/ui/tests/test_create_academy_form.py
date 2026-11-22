@@ -96,6 +96,11 @@ def test_invalid_submission_is_rejected(form, page, case):
         pytest.skip("Set EVA_TEST_EMAIL to one of your own test addresses first.")
     fields = tuple(v.replace("{email}", TEST_EMAIL) for v in CASES[case])
     require_invalid_academy_form(*fields)  # refuses if the form could create a real academy
+    if case == "invalid email":
+        # Only the browser checks the email format. If the field is not an email field,
+        # submitting could create a real academy, so do not run this case.
+        if form.email.get_attribute("type") != "email":
+            pytest.skip("Email field is not type=email, so the browser would not block this case.")
     form.fill(*fields)
     form.submit_button.click()
     page.wait_for_load_state("networkidle")
