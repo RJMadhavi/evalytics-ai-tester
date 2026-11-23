@@ -1,0 +1,107 @@
+{
+  "file": "two_column_with_key.pdf",
+  "layout": "two_column",
+  "answer_key_in_file": true,
+  "questions": [
+    {
+      "id": "q01",
+      "question_text": "What is the chemical formula of water?",
+      "option_a": "H2O",
+      "option_b": "CO2",
+      "option_c": "NaCl",
+      "option_d": "O2",
+      "correct_option": "A",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q02",
+      "question_text": "If x + 5 = 12, what is the value of x?",
+      "option_a": "5",
+      "option_b": "6",
+      "option_c": "7",
+      "option_d": "8",
+      "correct_option": "C",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q03",
+      "question_text": "The pH of a neutral solution at 25 C is",
+      "option_a": "0",
+      "option_b": "7",
+      "option_c": "14",
+      "option_d": "1",
+      "correct_option": "B",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q04",
+      "question_text": "The speed of light in vacuum is approximately",
+      "option_a": "3 x 10^8 m/s",
+      "option_b": "3 x 10^6 m/s",
+      "option_c": "3 x 10^5 m/s",
+      "option_d": "3 x 10^10 m/s",
+      "correct_option": "A",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q05",
+      "question_text": "Which element has the atomic number 6?",
+      "option_a": "Nitrogen",
+      "option_b": "Oxygen",
+      "option_c": "Carbon",
+      "option_d": "Boron",
+      "correct_option": "C",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q06",
+      "question_text": "The value of 7 x 8 is",
+      "option_a": "54",
+      "option_b": "56",
+      "option_c": "58",
+      "option_d": "64",
+      "correct_option": "B",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q07",
+      "question_text": "The formula of sulphuric acid is",
+      "option_a": "HCl",
+      "option_b": "HNO3",
+      "option_c": "H2SO4",
+      "option_d": "H3PO4",
+      "correct_option": "C",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q08",
+      "question_text": "What is 25% of 200?",
+      "option_a": "25",
+      "option_b": "40",
+      "option_c": "50",
+      "option_d": "75",
+      "correct_option": "C",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q09",
+      "question_text": "The square root of 144 is",
+      "option_a": "10",
+      "option_b": "11",
+      "option_c": "12",
+      "option_d": "14",
+      "correct_option": "C",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q10",
+      "question_text": "Water boils at what temperature at sea level?",
+      "option_a": "90 C",
+      "option_b": "100 C",
+      "option_c": "110 C",
+      "option_d": "120 C",
+      "correct_option": "B",
+      "difficulty": "easy"
+    }
+  ]
+}

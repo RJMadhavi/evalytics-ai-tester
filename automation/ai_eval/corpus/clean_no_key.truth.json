@@ -1,0 +1,107 @@
+{
+  "file": "clean_no_key.pdf",
+  "layout": "single",
+  "answer_key_in_file": false,
+  "questions": [
+    {
+      "id": "q01",
+      "question_text": "Which element has the atomic number 6?",
+      "option_a": "Nitrogen",
+      "option_b": "Oxygen",
+      "option_c": "Carbon",
+      "option_d": "Boron",
+      "correct_option": "C",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q02",
+      "question_text": "Photosynthesis takes place mainly in the",
+      "option_a": "Roots",
+      "option_b": "Stem",
+      "option_c": "Leaves",
+      "option_d": "Flowers",
+      "correct_option": "C",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q03",
+      "question_text": "The value of 7 x 8 is",
+      "option_a": "54",
+      "option_b": "56",
+      "option_c": "58",
+      "option_d": "64",
+      "correct_option": "B",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q04",
+      "question_text": "Which law states that force equals mass times acceleration?",
+      "option_a": "Newton's first law",
+      "option_b": "Newton's second law",
+      "option_c": "Newton's third law",
+      "option_d": "Ohm's law",
+      "correct_option": "B",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q05",
+      "question_text": "The formula of sulphuric acid is",
+      "option_a": "HCl",
+      "option_b": "HNO3",
+      "option_c": "H2SO4",
+      "option_d": "H3PO4",
+      "correct_option": "C",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q06",
+      "question_text": "What is 25% of 200?",
+      "option_a": "25",
+      "option_b": "40",
+      "option_c": "50",
+      "option_d": "75",
+      "correct_option": "C",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q07",
+      "question_text": "Which planet is known as the Red Planet?",
+      "option_a": "Venus",
+      "option_b": "Mars",
+      "option_c": "Jupiter",
+      "option_d": "Saturn",
+      "correct_option": "B",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q08",
+      "question_text": "The square root of 144 is",
+      "option_a": "10",
+      "option_b": "11",
+      "option_c": "12",
+      "option_d": "14",
+      "correct_option": "C",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q09",
+      "question_text": "Which organ pumps blood through the human body?",
+      "option_a": "Lungs",
+      "option_b": "Liver",
+      "option_c": "Heart",
+      "option_d": "Kidney",
+      "correct_option": "C",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q10",
+      "question_text": "Water boils at what temperature at sea level?",
+      "option_a": "90 C",
+      "option_b": "100 C",
+      "option_c": "110 C",
+      "option_d": "120 C",
+      "correct_option": "B",
+      "difficulty": "easy"
+    }
+  ]
+}

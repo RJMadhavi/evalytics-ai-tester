@@ -1,0 +1,97 @@
+{
+  "file": "formulas_with_key.pdf",
+  "layout": "single",
+  "answer_key_in_file": true,
+  "questions": [
+    {
+      "id": "q01",
+      "question_text": "What is the chemical formula of water?",
+      "option_a": "H2O",
+      "option_b": "CO2",
+      "option_c": "NaCl",
+      "option_d": "O2",
+      "correct_option": "A",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q02",
+      "question_text": "The formula of sulphuric acid is",
+      "option_a": "HCl",
+      "option_b": "HNO3",
+      "option_c": "H2SO4",
+      "option_d": "H3PO4",
+      "correct_option": "C",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q03",
+      "question_text": "Which compound is formed when sodium reacts with chlorine?",
+      "option_a": "NaCl",
+      "option_b": "NaOH",
+      "option_c": "Na2O",
+      "option_d": "NaClO",
+      "correct_option": "A",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q04",
+      "question_text": "The chemical formula of calcium hydroxide is",
+      "option_a": "CaOH",
+      "option_b": "Ca(OH)2",
+      "option_c": "CaO2",
+      "option_d": "Ca2OH",
+      "correct_option": "B",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q05",
+      "question_text": "When hydrogen burns in oxygen, the balanced equation 2H2 + O2 gives",
+      "option_a": "H2O",
+      "option_b": "2H2O",
+      "option_c": "H2O2",
+      "option_d": "2H2O2",
+      "correct_option": "B",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q06",
+      "question_text": "If x^2 = 49 and x > 0, then x equals",
+      "option_a": "5",
+      "option_b": "6",
+      "option_c": "7",
+      "option_d": "8",
+      "correct_option": "C",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q07",
+      "question_text": "The molecular formula of glucose is",
+      "option_a": "C6H12O6",
+      "option_b": "C12H22O11",
+      "option_c": "C6H6",
+      "option_d": "CH4",
+      "correct_option": "A",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q08",
+      "question_text": "What is the derivative of x^2 with respect to x?",
+      "option_a": "x",
+      "option_b": "2x",
+      "option_c": "x^2",
+      "option_d": "2",
+      "correct_option": "B",
+      "difficulty": "easy"
+    },
+    {
+      "id": "q09",
+      "question_text": "The speed of light in vacuum is approximately",
+      "option_a": "3 x 10^8 m/s",
+      "option_b": "3 x 10^6 m/s",
+      "option_c": "3 x 10^5 m/s",
+      "option_d": "3 x 10^10 m/s",
+      "correct_option": "A",
+      "difficulty": "easy"
+    }
+  ]
+}
