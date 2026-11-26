@@ -3,9 +3,9 @@ id: EVA-DOC-005
 title: Academy Flows Inventory
 story: EVA-S0006
 status: Template. Fill in while walking through the academy.
-sut_version: v1.1.0
+sut_version: v1.2.0
 academy_alias: qa0
-date: <2026-11-14>
+date: 2026-11-14
 ---
 
 # Academy Flows Inventory
@@ -96,8 +96,31 @@ Walk order: view-only flows first, then flows that create harmless data, then fl
 - Which pages work on a phone, and which do not?
 
 ## 5. Flow cards
-
-Paste a card for each flow here as you finish it.
+| AF-01 | Log in as owner and log out | Owner | M02 | | 1 | |
+```
+### | AF-01 | Log in as owner and log out | Owner | M02 | | 1 | |
+Role:            owner | teacher | student
+Entry point:     https://www.evalytics.in
+Preconditions:   Website must be up and running. 
+                 There must be an owner/teacher account created.
+Steps:
+  1. Open Browser (Chrome/Safari/IE Edge/Firefox).
+  2. Type in "[https://www.evalytics.in](https://<academy-name>.evalytics.in/login)". Click on Enter button and wait for the page to launch.
+  3. Enter the Email Address/Password combination. Click on SignIn button.
+  4. Verify that the login is successful and the dashboard page for the academy/owner/teacher is displayed.
+  5. Click on the User name at the right hand corner of the dashboard. Click on it.
+  6. This should reveal a drop-down menu with logout option in it.
+  7. Click on the Logout option to Log out of the session.
+  8. Verify that the user is able to logout after the option is clicked in the drop-down menu.
+Result:          User is able to Login and Logout in the academy.
+Data created:    Nothing
+Emails sent:     NA
+Quota used:      None
+Can be undone:   no
+Address paths:   the page addresses you passed through (path only, no ids)
+Odd things:      error messages, slow steps, confusing wording
+Screenshot:      docs/recon/screenshots/AF-00.png
+```
 
 ## 6. Automation candidates
 
