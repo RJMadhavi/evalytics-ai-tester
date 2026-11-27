@@ -10,7 +10,7 @@
 #             unless marked "proposed" in a comment
 #   epics     Epics that normally hold work for this module (in-scope only)
 #   reason    Required when scope is skipped
-#   skipped_on  Date the module was descoped (YYYY-MM-DD)
+#   skipped_on  Date the module was descoped (2026-11-27)
 #
 # Rule: a module is never deleted. If it is not being tested, mark it skipped
 # and say why, so it shows up in the "untested areas" part of the final report.
