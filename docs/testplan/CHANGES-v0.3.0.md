@@ -6,48 +6,62 @@ Date: 2026-11-27. Decisions: [ADR-0001](../adr/ADR-0001-defer-ai-feature-testing
 
 The plan in the repo was already at 0.2.0 (dated 2026-11-15), so these changes make it **0.3.0**.
 This file is a working guide and, once merged, the change record.
-Do the parts in this order: C (authorization), then A (plan), then B (README), then D (board).
+Do the parts in this order: C (record the approval), then A (plan), then B (README), then D (board).
+The new `docs/governance/CAPACITY-RULES.md` goes into the same pull request.
 
 ## What changes, in four lines
 
 1. AI features (M05, M06, M07, M13, M14) are out of scope for now (ADR-0001).
-2. Load and stress testing were already goals G3 and G4. ADR-0002 adds the rules for student accounts, email and cleanup.
+2. Load and stress testing were already goals G3 and G4. With no staging environment and the owner's capacity condition, load testing runs as a gradual ladder (target 500 students) under `CAPACITY-RULES.md`, only as far as the owner approves, and stress testing is deferred (ADR-0002).
 3. The ten sprints are compressed into four bursts (about 151 h, about 19 working days, ADR-0003).
 4. `docs/modules.yaml` becomes the source of truth for module scope and priority.
 
 ---
 
-## Part C: Authorization addendum (do this first)
+## Part C: Record the owner's approval (do this first)
 
-**Why first:** load and stress tests can affect real users. Nothing in this addendum is approved until the owner
-confirms it in writing. Do not fill in values on the owner's behalf and do not mark anything as approved yourself.
+**Why first:** the owner has approved verbally, with one condition: the automation must not impact server capacity.
+A verbal approval protects nobody if it is ever questioned, so write it down now and get one written "OK" from him.
+This takes about ten minutes and only blocks load tests. Everything else can start today.
 
-Add this section to `docs/governance/AUTHORIZATION.md`, send it to the owner, and store their reply
-(for example under `docs/governance/evidence/`) before any load or stress run.
+1. Add the text below to `docs/governance/AUTHORIZATION.md`. Fill in the date and how he said it
+   (call, in person, message). Only write what he actually said.
+2. Send him the short message further down and keep his reply (a screenshot of a chat is fine) in
+   `docs/governance/evidence/`.
+3. Add the reply's date to the addendum when it arrives.
 
 ```text
-## Addendum: performance, load and stress testing (requested 2026-11-27)
+## Addendum: performance, load and stress testing
 
-Status: REQUESTED, not yet approved.
+Verbal approval: given by the owner on ______ (call / in person / message).
+Condition stated by the owner: the automation must not impact server capacity.
+Written confirmation: PENDING (update with date and evidence file when received).
 
-Requested scope
-- Performance checks (Lighthouse and similar) on pages in the QA academy.
-- Load tests on exam-taking flows, ramped gradually, using synthetic students (loadtest-sNNN)
-  in dedicated academies (eva-load-N).
-- Stress tests: staging only.
+Agreed so far
+- Environment: production only, my own QA academies and dedicated load-test academies (eva-load-N).
+  There is no staging environment.
+- Stress testing: not run (no staging, and it conflicts with the owner's condition).
+- All automation follows docs/governance/CAPACITY-RULES.md.
 
-To be filled in by the owner
-- Environment:                 [ ] staging   [ ] production QA academies only
-- Maximum concurrent students: ______
-- Allowed window (IST):        ______ to ______ on ______
-- Stop rule:                   stop if error rate exceeds ____% or p95 response time exceeds ____ s,
-                               or whenever the owner asks
-- Stress testing:              [ ] allowed on staging only   [ ] not allowed
-- Emails for bulk accounts:    [ ] catch-all test domain   [ ] owner switches emails off for these academies
-- Seat limit raised to:        ______
-- Cleanup:                     owner deletes eva-load-N academies and loadtest accounts after the tests
+To be confirmed by the owner
+- Maximum concurrent test students (target 500, gradually; steps above 100 each need his go):  ______
+- Quiet hours for bigger runs (IST):                    ______
+- Stop contact and how to reach him:                    ______
+- Seat limit raised on the test tenant to:              ______
+- Emails for bulk accounts:  [ ] catch-all test domain   [ ] owner switches emails off for these academies
+- Cleanup: owner deletes eva-load-N academies and loadtest accounts after the tests
+```
 
-Confirmed by: ______  Date: ______  Evidence (link or file): ______
+**Short message to the owner (edit as you like):**
+
+```text
+Hi <name>, so we are clear on what we discussed: I will run automated tests only on my own test academies.
+For load testing I would like to go up gradually, in steps, towards 500 test students. Up to 100 I will tell you
+before each run. For every step above 100 I will ask you first, and ideally you watch the server while it runs.
+I will stop straight away if the site slows down or you ask me to, and I will not run stress tests.
+Could you reply "OK" to confirm how far you are comfortable going, and tell me which hours are quietest for you?
+I will also need the seat limit raised (or the students created) and my test machine's IP allow-listed if you
+have rate limiting. Thanks!
 ```
 
 ---
@@ -72,14 +86,17 @@ If other sections show changes, something differs from the copy I started from, 
 | 5.5 | One sentence on how load-test accounts are created and cleaned up |
 | 6.2, 6.4 | A4 re-scoped to deterministic outputs; no upload, AI generation, Genie or translation in the agent action list |
 | 7 Environment | Load-test academies, `loadtest-sNNN` accounts, catch-all email, hand-made question set |
+| 1, 2, 4.2, 5.2, 5.5, 10 | Stress testing (G4, E14) deferred; capacity bullet and `CAPACITY-RULES.md` referenced; S7 renamed to load testing |
+| 5.5, 7, 9.4 | Load ladder 10 up to 500 with a gate between steps; k6 at protocol level; E04 (9 h) and E13 (12 h) fast-track hours raised; total about 151 h |
+| 14, 15 | Risks: bulk email, capacity, no staging, verbal approval only, and AI features untested (replaces the AI quota row). Open questions 1 and 3 reworded; two questions added |
 | 8.1, 8.2 | `docs/modules.yaml` and `scripts/` added to the layout; "Won't do" column added to the board |
-| 9 Estimates | E04 wording; E11 set to 0; subtotal 430 h, contingency 65 h, total about 495 h |
+| 9 Estimates | E04 wording; E11 and E14 set to 0; subtotal 416 h, contingency 62 h, total about 478 h |
 | 9.1 | Duration table recalculated; two fast-track rows added |
 | 9.2 | Effort percentages marked approximate; AI share removed |
 | 9.4 (new) | Fast-track variant: hours per epic (about 151 h) and the four bursts |
 | 10 Roadmap | S5 marked deferred; S6 theme adjusted; fast-track note |
 | 11 Exit criteria | AI metrics replaced by "listed as not tested" |
-| 13, 14, 15, 16 | AI metrics marked deferred; two risks changed or added; two questions added and one reworded; `modules.yaml` mentioned |
+| 13, 16 | AI metrics marked deferred; `modules.yaml` mentioned |
 | 17 Revision history | New 0.3.0 row; `<your-name>` replaced by MadhaviJ in the older rows |
 
 Fast-track hours in 9.4 are my proposal, including 3 h for unit tests of the repo's scripts (goal G2).
