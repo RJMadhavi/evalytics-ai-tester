@@ -1,0 +1,44 @@
+# ADR-0003: Fast-track schedule
+
+- **Status:** Accepted
+- **Date:** 2026-11-27
+- **Deciders:** Madhavi Joshi (project owner)
+- **Affects:** plan sections 9, 9.1, 10; sprint structure
+
+## Context
+
+The full plan is about 518 hours (about 458 hours after ADR-0001). At 8 focused hours a day that is roughly 57 to 65
+working days. The goal now is to finish as quickly as possible without dropping the P0 risks.
+
+## Decision
+
+Compress the ten two-week sprints into **four bursts**, targeting about **147 hours (about 19 working days at 8 h/day)**.
+Each epic is shrunk, not removed, except where another ADR defers it.
+
+| Burst | Covers | Days | Main outputs |
+|---|---|---|---|
+| 1 | S0 and the start of S1 | 1-5 | Authorization, tenants, feature map, 20-30 test cases, first Playwright test |
+| 2 | S1-S3 | 6-10 | P0/P1 scripted flows, API notes, authentication security checks |
+| 3 | S4-S7, trimmed | 11-15 | Tenant isolation, load and performance, browser and accessibility spot-checks, stress on staging if it exists |
+| 4 | Agents and wrap-up | 16-19 | Local-model agent runs compared with scripts, triage, short report |
+
+Fast-track hours by epic: E01 3, E02 6, E03 8, E04 7, E05 16, E06 10, E07 20, E08 6, E09 10, E10 0 (deferred),
+E11 0 (deferred), E12 5, E13 14, E14 14, E15 6, E16 3. Subtotal 128 h, plus 15% contingency, about 147 h.
+
+Not negotiable even when rushing: written authorization, testing only the own tenant, throttled runs,
+security findings kept private, and agents built last so scripted tests act as the answer key.
+
+## Consequences
+
+- Lower coverage of P2/P3 areas; no nightly agent run in CI; no burndown charts or retros.
+- The estimate accuracy is about plus or minus 30%.
+- Day 14 is a buffer and re-test day. Slow timed tests (such as auto-submit) are started early and run in the background.
+
+## Alternatives considered
+
+- **Run the full plan.** Rejected: too long for the stated goal.
+- **One-week version (about 40 h).** Possible fallback: P0 items only, no agents.
+
+## Revisit when
+
+Sprint 0 recon changes the estimates, or the owner's answers (staging, quota, permitted tests) change the scope.

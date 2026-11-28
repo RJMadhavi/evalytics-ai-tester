@@ -1,0 +1,56 @@
+# ADR-0002: Performance, load and stress testing in scope, under conditions
+
+- **Status:** Accepted, with conditions. Stress testing stays blocked until the conditions below are met.
+- **Date:** 2026-11-27
+- **Deciders:** Madhavi Joshi (project owner)
+- **Affects:** epic E13; modules M09, M10 (exam under load); the plan's non-goals; section 2 guardrails
+
+## Context
+
+The project needs performance, load and stress testing, which requires many student accounts inside academies.
+The original plan listed "load/stress testing at production scale" as a non-goal and said heavy work belongs on staging.
+That rule exists for a reason: the production site hosts real academies and real students, and a stress test could
+interrupt a live exam. Bulk account creation also triggers real emails.
+
+## Decision
+
+Three kinds of testing are in scope, with different limits:
+
+| Type | Question | Where | Risk |
+|---|---|---|---|
+| Performance | How fast is one user's experience? | QA tenant | Very low |
+| Load | Does it hold at the expected number of concurrent students? | Staging, or QA tenants in an owner-approved window | Low to medium |
+| Stress | Where does it break and how does it fail? | **Staging only** | High |
+
+Conditions that must all be true before a load or stress run:
+
+1. `docs/governance/AUTHORIZATION.md` has an addendum that **names** load and stress testing, with environment,
+   maximum concurrent virtual students, allowed time window and stop rule, confirmed by the owner in writing.
+2. Staging is used if it exists. If there is no staging, only load tests run, in an agreed off-peak window,
+   with the owner informed, and with a gradual ramp. Stress testing never runs against production
+   without explicit approval for a specific time slot.
+3. Load-test students live only in dedicated academies (`eva-load-<n>`), use synthetic names (`loadtest-sNNN`),
+   and are recorded in a CSV. Accounts are created slowly, in small batches.
+4. Emails are handled before accounts are created: a mail domain with a catch-all inbox, or the owner turns off emails
+   for the load-test academies.
+5. Load ramps up in steps (proposed: 10, 50, 100, 200 students; the owner sets the real maximum).
+   The run stops at once if the error rate or response time passes the agreed threshold, or if the owner asks.
+6. The owner deletes the load-test academies and accounts afterwards. No script deletes accounts.
+
+Tools: Lighthouse (page speed), k6 (load and stress scripts), Playwright (to capture realistic flows).
+
+## Consequences
+
+- E13 is reinstated (fast-track: about 14 h). Seeding students is added to E04.
+- The seat limit on the test tenant must be raised by the owner, or the student counts cannot be reached.
+- The "stress test" day in the schedule is skipped if no staging environment exists.
+- New risks in the risk register: load or stress degrades production for real users; bulk accounts flood email.
+
+## Alternatives considered
+
+- **Skip load testing.** Rejected: exam-taking under a full class is a core product risk.
+- **Stress test production.** Rejected: real users are affected.
+
+## Revisit when
+
+The owner answers the staging question, or approves different limits.
