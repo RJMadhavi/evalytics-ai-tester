@@ -10,13 +10,15 @@
 #             unless marked "proposed" in a comment
 #   epics     Epics that normally hold work for this module (in-scope only)
 #   reason    Required when scope is skipped
-#   skipped_on  Date the module was descoped (2026-11-27)
+#   skipped_on  Date the module was descoped (YYYY-MM-DD)
 #
 # Rule: a module is never deleted. If it is not being tested, mark it skipped
 # and say why, so it shows up in the "untested areas" part of the final report.
 
 version: 1
 updated: 2026-11-27
+# Epic numbers follow TEST-PLAN.md v0.3.0 section 9: E07 UI automation, E09 API, E10 security,
+# E13 load testing, E14 stress testing.
 
 modules:
   - id: M01
@@ -29,13 +31,13 @@ modules:
     name: Authentication and session
     scope: in
     priority: P0
-    epics: [E07, E09]
+    epics: [E07, E10]
 
   - id: M03
     name: Roles and approvals
     scope: in
     priority: P1
-    epics: [E07, E09]
+    epics: [E07, E10]
 
   - id: M04
     name: Enrollment and batches
@@ -80,7 +82,7 @@ modules:
     name: Exam taking (student)
     scope: in
     priority: P0
-    epics: [E07, E13]
+    epics: [E07, E13, E14]
 
   - id: M11
     name: Results and analytics
@@ -130,4 +132,4 @@ modules:
     name: Multi-tenancy isolation
     scope: in
     priority: P0
-    epics: [E09]
+    epics: [E10]
